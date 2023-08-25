@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbds1bwplih44"]
+
+[ext_resource type="Script" path="res://maze.gd" id="1_cxtvd"]
+
+[node name="Maze" type="Node"]
+script = ExtResource("1_cxtvd")
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2

@@ -45,10 +45,14 @@ func initialize_grid():
     var atlas_coords = Vector2i(3, 3)
     
     # Draw north and west walls.
+    var cells = []
     for y in range((grid_size * cell_size) + 1):
         $TileMap.set_cell(0, Vector2i(-1, y - 1), 0, atlas_coords)
+        cells.append(Vector2i(-1, y - 1))
     for x in range((grid_size * cell_size) + 1):
         $TileMap.set_cell(0, Vector2i(x - 1, -1), 0, atlas_coords)
+        cells.append(Vector2i(x - 1, -1))        
+    
     for y in range(grid_size):
         grid.append([])
         for x in range(grid_size):
@@ -57,20 +61,23 @@ func initialize_grid():
                 for x_cell in range(cell_size):
                     if not x_cell and not y_cell:
                         continue
-                    $TileMap.set_cell(0, Vector2i((x * cell_size) + y_cell, (y * cell_size) + x_cell), 0, atlas_coords)
+                    cells.append(Vector2i((x * cell_size) + y_cell, (y * cell_size) + x_cell))
+        $TileMap.set_cells_terrain_connect(0, cells, 0, 0, true)
 
+    
+  
 func draw_maze(tilemap: TileMap):
-    var source_id = 0
-    var atlas_coords = Vector2i(0, 4) # The atlas coordinates of the tile
+    var source_id = -1
     for y in range(grid.size()):
         for x in range(grid[y].size()):
             var current_node = grid[y][x];
             if current_node.east_path:
                 var coords = Vector2i((x * cell_size) + 1, y * cell_size)
-                tilemap.set_cell(0, coords, source_id, atlas_coords)
+                tilemap.set_cell(0, coords, source_id)
+            
             if current_node.south_path:
                 var coords = Vector2i(x * cell_size , (y * cell_size) + 1)
-                tilemap.set_cell(0, coords, source_id, atlas_coords)        
+                tilemap.set_cell(0, coords, source_id)        
 
                 
 func recursive_backtracker():

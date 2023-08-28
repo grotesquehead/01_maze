@@ -142,15 +142,31 @@ func recursive_backtracker():
 			stack.push(neighbour[1])
 			neighbour[1].visited = true
 
-		
+
 func remove_wall_exit():
 	var cell = get_random_exit()
 	$TileMap.set_cell(0, cell, -1, Vector2i(3,3))
-	
-#    $TileMap2.set_cell(0, cell, 0, Vector2i(0,0))
-		
+	$PointLight2D.global_position = move_light_to_exit(cell)
 
-		
+
+func move_light_to_exit(cell) -> Vector2:
+	var light_position = Vector2.ZERO
+	var tile_size = 40
+	
+	if cell.x == -1:
+		light_position = Vector2(cell.x * tile_size + tile_size * 1.5, cell.y * tile_size + tile_size * 1.5)
+	
+	if cell.x == 21:
+		light_position = Vector2(cell.x * tile_size + tile_size * 2.5, cell.y * tile_size + tile_size * 1.5)
+	
+	if cell.y == -1:
+		light_position = Vector2(cell.x * tile_size + tile_size * 1.5, cell.y * tile_size + tile_size * 1.5)
+	
+	if cell.y == 21:
+		light_position = Vector2(cell.x * tile_size + tile_size * 1.5, cell.y * tile_size + tile_size * 2.5)
+	
+	return light_position
+
 func _ready():
 	rng.seed = 0
 	

@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var grid_size: int = 13
+@export var grid_size: int = 11
 @export var cell_size: int = 2
 var grid: Array = []
 var rng = RandomNumberGenerator.new()

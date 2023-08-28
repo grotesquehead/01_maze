@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/maze.gd" id="1_4lfwu"]
 [ext_resource type="Texture2D" uid="uid://bv7y4nn6v4dct" path="res://floor_tile.png" id="3_aj6cd"]
 [ext_resource type="Texture2D" uid="uid://dcgwhdyvbjyyb" path="res://wall_tile.png" id="3_r7rin"]
-[ext_resource type="PackedScene" uid="uid://p5m7kjcj68vl" path="res://player.tscn" id="4_xpdap"]
+[ext_resource type="PackedScene" path="res://player.tscn" id="4_xpdap"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8u5pl"]
 texture = ExtResource("3_aj6cd")
@@ -178,7 +178,6 @@ sources/0 = SubResource("TileSetAtlasSource_l84d8")
 script = ExtResource("1_4lfwu")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0, 0, 0, 1)
 
 [node name="TileMap2" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_7q5o3")

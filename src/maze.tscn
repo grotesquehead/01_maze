@@ -191,6 +191,8 @@ tile_set = SubResource("TileSet_750n3")
 cell_quadrant_size = 17
 format = 2
 
-[node name="Player" parent="." instance=ExtResource("4_xpdap")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Player" parent="CanvasLayer" instance=ExtResource("4_xpdap")]
 position = Vector2(460, 460)
 speed = 192

@@ -8,8 +8,10 @@ func _physics_process(_delta):
 	var input_direction = get_input_direction()
 	if input_direction:
 		velocity = input_direction * speed
+		$AnimationPlayer.play("walk_down")
 	else:
 		velocity = Vector2.ZERO
+		$AnimationPlayer.play("idle")
 	move_and_slide()
 
 

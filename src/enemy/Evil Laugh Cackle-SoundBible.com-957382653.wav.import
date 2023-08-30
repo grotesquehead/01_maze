@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bvdp74d6t1360"
+path="res://.godot/imported/Evil Laugh Cackle-SoundBible.com-957382653.wav-c7b283ee97319071b3fbb126aac5393d.sample"
+
+[deps]
+
+source_file="res://enemy/Evil Laugh Cackle-SoundBible.com-957382653.wav"
+dest_files=["res://.godot/imported/Evil Laugh Cackle-SoundBible.com-957382653.wav-c7b283ee97319071b3fbb126aac5393d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

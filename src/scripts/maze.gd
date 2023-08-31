@@ -121,7 +121,6 @@ func draw_maze(tilemap: TileMap):
                 
                 
                 
-                print(possible_walls_to_remove)
                 # Randomly select a wall to remove
                 if possible_walls_to_remove.size() > 0:
                     var wall_to_remove = possible_walls_to_remove[randi() % possible_walls_to_remove.size()]
@@ -185,22 +184,22 @@ func recursive_backtracker():
             moving_in = true
 
 func spawn_random_enemy():
-    var location = Vector2i(randi() % grid.size(), randi() % grid.size())
-    var node = grid[location.y][location.x]
-    
-    # Check if the selected grid location is an open path
-    if not node.east_path and not node.south_path:
-        spawn_random_enemy()
-        return
-    
+    var tile_id = "A Value lololol"
+    var location
+    while tile_id != null:
+        location = Vector2i(randi() % grid.size(), randi() % grid.size())
+        tile_id = $TileMap.get_cell_tile_data(0, location)
+
     # Calculate the real-world position based on the grid location and cell size
-    var real_world_x = (location.x * cell_size + cell_size / 2) * $TileMap.tile_set.tile_size.x
-    var real_world_y = (location.y * cell_size + cell_size / 2) * $TileMap.tile_set.tile_size.y
+    var real_world_x = ((location.x + 1) * $TileMap.tile_set.tile_size.x) + ($TileMap.tile_set.tile_size.x / 2)
+    var real_world_y = ((location.y + 1) * $TileMap.tile_set.tile_size.y) + ($TileMap.tile_set.tile_size.y / 2)
+    
     var real_world = Vector2(real_world_x, real_world_y)
     
     var instance = enemy.instantiate()
     add_child(instance)
     instance.position = real_world
+    instance.post_ready()
 
 
 func remove_wall_exit():

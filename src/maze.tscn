@@ -188,7 +188,7 @@ height = 320
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="Maze" type="Node2D"]
+[node name="Maze" type="Node2D" groups=["maze"]]
 script = ExtResource("1_4lfwu")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]

@@ -226,7 +226,7 @@ states/walk/position = Vector2(566, 100)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_hcgwo")
-speed = 256
+speed = 240
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -8)

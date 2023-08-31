@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://p5m7kjcj68vl"]
+[gd_scene load_steps=27 format=3 uid="uid://p5m7kjcj68vl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_hcgwo"]
 [ext_resource type="Texture2D" uid="uid://cs5wxbo1eantw" path="res://player/player.png" id="2_ni65x"]
+[ext_resource type="Texture2D" uid="uid://5sp6cfe2f3k5" path="res://player/player_blink.png" id="3_ye1fg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c668y"]
 radius = 16.0
@@ -226,7 +227,8 @@ states/walk/position = Vector2(566, 100)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_hcgwo")
-speed = 240
+sprite_base = ExtResource("2_ni65x")
+sprite_blink = ExtResource("3_ye1fg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -8)
@@ -253,3 +255,7 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/idle/blend_position = Vector2(0, 1)
 parameters/walk/blend_position = Vector2(0, 1)
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

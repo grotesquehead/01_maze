@@ -209,7 +209,6 @@ format = 2
 
 [node name="Player" parent="CanvasLayer" instance=ExtResource("4_xpdap")]
 position = Vector2(460, 460)
-speed = 192
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 blend_mode = 2

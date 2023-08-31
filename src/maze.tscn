@@ -192,6 +192,7 @@ fill_from = Vector2(0.5, 0.5)
 script = ExtResource("1_4lfwu")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
 
 [node name="TileMap2" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_7q5o3")

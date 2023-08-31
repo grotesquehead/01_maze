@@ -35,8 +35,6 @@ class AStarNode:
         var v = self.as_vector(tile_size)
         return Vector2(v[0] + (tile_size / 2), v[1] + (tile_size / 2))
         
-
-
 func populate_grid_with_nodes(tilemap: TileMap, grid_size: Vector2) -> Array:
     
     for y in range(grid_size.y):
@@ -59,7 +57,6 @@ func populate_grid_with_nodes(tilemap: TileMap, grid_size: Vector2) -> Array:
         grid.append(row)
     
     return grid
-
 
 func control_laugh():
     if player != null:
@@ -113,7 +110,6 @@ func _process(delta):
     move_and_slide()
 
     set_animation(velocity)
-
 
 func heuristic(a, b) -> float:
     return abs(a.x - b.x) + abs(a.y - b.y)
@@ -201,24 +197,10 @@ func post_ready():
     tile_size = tilemap.tile_set.tile_size.x
     grid_size = Vector2((p.grid_size * p.cell_size) - 1, (p.grid_size * p.cell_size) - 1)  # Replace with your actual grid size
     populate_grid_with_nodes(tilemap, grid_size)
-    print(position)
     path = a_star(get_node_at_index(position), random_destination(), grid)
-    print(path)
-    
+    $AudioStreamPlayer2D.play()
 
 
-#    grid = get_parent().grid
-#    direction = get_random_direction()
-#    $AudioStreamPlayer2D.play()
-#    player = get_tree().get_nodes_in_group("player")[0]
-
-
-#func _on_bounce_zone_body_entered(_body):
-#    var current_direction = direction
-#    while current_direction == direction:
-#        direction = get_random_direction()
-#
-#
-#func _on_audio_stream_player_2d_finished():
-#    $AudioStreamPlayer2D.stream_paused = false
-#    $AudioStreamPlayer2D.play()
+func _on_audio_stream_player_2d_finished():
+    $AudioStreamPlayer2D.stream_paused = false
+    $AudioStreamPlayer2D.play()

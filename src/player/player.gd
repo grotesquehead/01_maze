@@ -2,7 +2,7 @@ extends Actor
 
 
 const SPEED: int = 240
-const BLINK_DURATION: float = 0.1875
+const BLINK_DURATION: float = 0.15
 const BLINK_INTERVAL_MIN: float = 2.0 - BLINK_DURATION
 const BLINK_INTERVAL_MAX: float = 10.0 - BLINK_DURATION
 
@@ -42,3 +42,7 @@ func _on_timer_timeout():
         sprite.texture = sprite_blink
         timer.wait_time = BLINK_DURATION
     timer.start()
+
+
+func _on_hurt_box_hit():
+    queue_free()

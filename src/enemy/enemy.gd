@@ -78,7 +78,7 @@ func random_destination() -> AStarNode:
         d = grid[randi() % grid.size()][randi() % grid[0].size()]
     return d
 
-func _process(delta):
+func _process(_delta):
     control_laugh()
     
     if path:

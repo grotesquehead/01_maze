@@ -1,8 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://dpmrtre4vefcn"]
+[gd_scene load_steps=26 format=3 uid="uid://dpmrtre4vefcn"]
 
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_ya4ru"]
 [ext_resource type="Texture2D" uid="uid://ckc5s2vhsjr3i" path="res://enemy/enemy.png" id="2_yc64v"]
 [ext_resource type="AudioStream" uid="uid://dwirmx4l534" path="res://enemy/tv-glitch-6245.mp3" id="3_3ykhm"]
+[ext_resource type="Script" path="res://enemy/hit_box.gd" id="4_wqk10"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qm6t4"]
 radius = 16.0
@@ -215,6 +216,7 @@ states/walk/node = SubResource("AnimationNodeBlendSpace2D_fv8cp")
 states/walk/position = Vector2(566, 100)
 
 [node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
 script = ExtResource("1_ya4ru")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -242,4 +244,15 @@ active = true
 parameters/idle/blend_position = Vector2(0, 1)
 parameters/walk/blend_position = Vector2(0, 1)
 
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("4_wqk10")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_qm6t4")
+debug_color = Color(0.972549, 0, 0.439216, 0.419608)
+
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
+[connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]

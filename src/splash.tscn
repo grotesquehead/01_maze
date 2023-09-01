@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf8elrjeayv22"]
+
+[ext_resource type="Texture2D" uid="uid://blr4hvi88b84k" path="res://logo.png" id="1_d14y3"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_gvrlp"]
+
+[node name="Splash" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+offset_right = 920.0
+offset_bottom = 920.0
+texture = SubResource("CanvasTexture_gvrlp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(460, 460)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_d14y3")

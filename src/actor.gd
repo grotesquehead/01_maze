@@ -6,9 +6,9 @@ extends CharacterBody2D
 
 
 func set_animation(direction):
-	if direction:
-		animation_tree.get("parameters/playback").travel("walk")
-		animation_tree.set("parameters/idle/blend_position", direction)
-		animation_tree.set("parameters/walk/blend_position", direction)
-	else:
-		animation_tree.get("parameters/playback").travel("idle")
+    if direction:
+        animation_tree.get("parameters/playback").travel("walk")
+        animation_tree.set("parameters/idle/blend_position", direction)
+        animation_tree.set("parameters/walk/blend_position", direction)
+    else:
+        animation_tree.get("parameters/playback").travel("idle")

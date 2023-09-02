@@ -226,9 +226,11 @@ func move_light_to_exit(cell) -> Vector2:
     
     return light_position
 
+
+
 func _ready():
+    get_tree().paused = true
     rng.seed = 0
-    
     initialize_grid()
 
 #    grid[0][0].east_path = true

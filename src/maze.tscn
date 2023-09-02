@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://cbds1bwplih44"]
+[gd_scene load_steps=13 format=3 uid="uid://cbds1bwplih44"]
 
 [ext_resource type="Script" path="res://scripts/maze.gd" id="1_4lfwu"]
 [ext_resource type="Texture2D" uid="uid://bv7y4nn6v4dct" path="res://floor_tile.png" id="3_aj6cd"]
 [ext_resource type="Texture2D" uid="uid://dcgwhdyvbjyyb" path="res://wall_tile.png" id="3_r7rin"]
 [ext_resource type="PackedScene" uid="uid://p5m7kjcj68vl" path="res://player/player.tscn" id="4_xpdap"]
+[ext_resource type="Script" path="res://maze_black.gd" id="5_e6n8g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8u5pl"]
 texture = ExtResource("3_aj6cd")
@@ -210,6 +211,13 @@ format = 2
 
 [node name="Player" parent="CanvasLayer" instance=ExtResource("4_xpdap")]
 position = Vector2(460, 460)
+
+[node name="Black" type="ColorRect" parent="CanvasLayer"]
+process_mode = 3
+offset_right = 920.0
+offset_bottom = 920.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("5_e6n8g")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 blend_mode = 2

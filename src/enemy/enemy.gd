@@ -93,6 +93,9 @@ func _process(_delta):
     var player_node = get_node_at_index(player.position)
     var enemy_node = get_node_at_index(position)
     
+    if player_node == null or enemy_node == null:
+        return
+    
     if distance_player < DISTANCE_THRESHOLD and player_node != path[-1]:
         print("player")
         path = a_star(enemy_node, player_node, grid)
@@ -188,7 +191,11 @@ func get_neighbors(node: AStarNode, grid: Array) -> Array:
     return neighbors
 
 func get_node_at_index(location: Vector2i) -> AStarNode:
-    return grid[int( location.y / tile_size ) - 1][int(location.x / tile_size) - 1]
+    var ix = int(location.x / tile_size) - 1
+    var iy = int( location.y / tile_size ) - 1
+    if iy >= grid.size() or ix >= grid[iy].size():
+        return null
+    return grid[iy][ix]
 
 func post_ready():
     var p = get_tree().get_nodes_in_group("maze")[0]

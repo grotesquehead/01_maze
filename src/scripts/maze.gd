@@ -7,7 +7,7 @@ var rng = RandomNumberGenerator.new()
 var cells = []
 var enemy = preload("res://enemy/enemy.tscn")
 var level = 0
-var enemy = null
+var enemy_instance = null
 
 
 
@@ -203,7 +203,7 @@ func spawn_random_enemy():
     add_child(instance)
     instance.position = real_world
     instance.post_ready()
-    enemy = instance
+    enemy_instance = instance
 
 
 func remove_wall_exit():
@@ -213,8 +213,8 @@ func remove_wall_exit():
 
 func inrement_level():
     level += 1
-    $CanvasLayer/RichTextLabel.clear()
-    $CanvasLayer/RichTextLabel.append_text("Level " + str(level))
+    $CanvasLayer/Score.clear()
+    $CanvasLayer/Score.append_text("Level " + str(level))
 
 func move_light_to_exit(cell) -> Vector2:
     var light_position = Vector2.ZERO
@@ -244,19 +244,22 @@ func reset(pause: bool):
     remove_wall_exit()
     $TileMap.set_cells_terrain_connect(0, $TileMap.get_used_cells(0), 0, 0, true)
     spawn_random_enemy()
+    $CanvasLayer/Player.position = Vector2(460,460)
 
 func cleanup():
-    enemy.queue_free()
+    enemy_instance.queue_free()
 
 func _ready():
     rng.seed = 0
     reset(true)
 
-
-
 func _on_area_2d_area_entered(area):
-    print("player has left maze")
-
+    cleanup()
+    $CanvasLayer/Black.fade_in = true
+    $CanvasLayer/Black.active = true
+    get_tree().paused = true
+    
+    
 
 func _on_player_dead():
     print("player is dead")

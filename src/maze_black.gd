@@ -4,6 +4,8 @@ var fade_in = false
 var direction = .005
 var active = true
 
+signal on_fade_in()
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -15,11 +17,9 @@ func _process(delta):
             modulate.a -= direction
         
         if not fade_in and modulate.a <= 0:
-            print(":dsfsdfsdfsdf")
             get_tree().paused = false
             active = false
         elif fade_in and modulate.a >= 1:
-            var p = get_parent().get_parent()
-            p.reset(true)
+            emit_signal("on_fade_in")
             fade_in = false
         

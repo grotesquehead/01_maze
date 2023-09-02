@@ -1,7 +1,7 @@
 extends Actor
 
 
-const SPEED = 100
+var speed = 120
 const SILENCE_DISTANCE = 1000
 const SILENCE = -30
 
@@ -108,7 +108,7 @@ func _process(_delta):
             path = a_star(enemy_node, random_destination(), grid)
         
 
-    velocity = direction * SPEED
+    velocity = direction * speed
 
     move_and_slide()
 

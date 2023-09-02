@@ -6,8 +6,12 @@ var grid: Array = []
 var rng = RandomNumberGenerator.new()
 var cells = []
 var enemy = preload("res://enemy/enemy.tscn")
+var dead = preload("res://dead.tscn")
 var level = 0
 var enemy_instance = null
+
+const SPEED_ADDITIVE = 200
+
 
 
 
@@ -203,6 +207,7 @@ func spawn_random_enemy():
     add_child(instance)
     instance.position = real_world
     instance.post_ready()
+    instance.speed += SPEED_ADDITIVE * level
     enemy_instance = instance
 
 
@@ -243,23 +248,36 @@ func reset(pause: bool):
     draw_maze($TileMap)
     remove_wall_exit()
     $TileMap.set_cells_terrain_connect(0, $TileMap.get_used_cells(0), 0, 0, true)
+    
+    if enemy_instance != null:
+        enemy_instance.queue_free()
+    
     spawn_random_enemy()
     $CanvasLayer/Player.position = Vector2(460,460)
+    
 
-func cleanup():
-    enemy_instance.queue_free()
 
 func _ready():
     rng.seed = 0
     reset(true)
 
 func _on_area_2d_area_entered(area):
-    cleanup()
     $CanvasLayer/Black.fade_in = true
     $CanvasLayer/Black.active = true
     get_tree().paused = true
+    await $CanvasLayer/Black.on_fade_in
+    reset(true)
     
     
 
 func _on_player_dead():
-    print("player is dead")
+    $CanvasLayer/Black.active = true
+    $CanvasLayer/Black.fade_in = true
+    print("woof")
+    await $CanvasLayer/Black.on_fade_in
+    print("woof2")
+
+    get_tree().change_scene_to_file("res://dead.tscn")
+    print("Sdfsdf")
+
+

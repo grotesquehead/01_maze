@@ -6,6 +6,8 @@ var grid: Array = []
 var rng = RandomNumberGenerator.new()
 var cells = []
 var enemy = preload("res://enemy/enemy.tscn")
+var level = 0
+var enemy = null
 
 
 
@@ -46,6 +48,7 @@ class MazeNodeStack:
         return self.size() == 0
 
 func initialize_grid():
+    grid = []
     var atlas_coords = Vector2i(3, 3)
     
     # Draw north and west walls.
@@ -200,6 +203,7 @@ func spawn_random_enemy():
     add_child(instance)
     instance.position = real_world
     instance.post_ready()
+    enemy = instance
 
 
 func remove_wall_exit():
@@ -207,6 +211,10 @@ func remove_wall_exit():
     $TileMap.set_cell(0, cell, -1, Vector2i(3,3))
     $PointLight2D.global_position = move_light_to_exit(cell)
 
+func inrement_level():
+    level += 1
+    $CanvasLayer/RichTextLabel.clear()
+    $CanvasLayer/RichTextLabel.append_text("Level " + str(level))
 
 func move_light_to_exit(cell) -> Vector2:
     var light_position = Vector2.ZERO
@@ -226,29 +234,21 @@ func move_light_to_exit(cell) -> Vector2:
     
     return light_position
 
-
-
-func _ready():
-    get_tree().paused = true
-    rng.seed = 0
+func reset(pause: bool):
+    inrement_level()
+    $TileMap.clear_layer(0)
+    get_tree().paused = pause
     initialize_grid()
-
-#    grid[0][0].east_path = true
-#    var coords = Vector2i(0, 0)
-#    $TileMap.set_cell(0, coords, 0, Vector2i(3,3))
-#    $TileMap.set_cell(0, coords, 0, Vector2i(3,3))
     recursive_backtracker()
-#    initialize_grid()
     draw_maze($TileMap)
     remove_wall_exit()
-#    var my_timer = Timer.new()
     $TileMap.set_cells_terrain_connect(0, $TileMap.get_used_cells(0), 0, 0, true)
     spawn_random_enemy()
-    
-#    my_timer.wait_time = 1.0  # Set the wait time to 1 second
-#    my_timer.autostart = true  # Set to start automatically
-#
-#    my_timer.connect("timeout", remove_wall_exit)
-#
-#    add_child(my_timer)
+
+func cleanup():
+    enemy.queue_free()
+
+func _ready():
+    rng.seed = 0
+    reset(true)
 

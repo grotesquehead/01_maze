@@ -252,3 +252,11 @@ func _ready():
 #
 #    add_child(my_timer)
 
+
+
+func _on_area_2d_area_entered(area):
+    print("player has left maze")
+
+
+func _on_player_dead():
+    print("player is dead")

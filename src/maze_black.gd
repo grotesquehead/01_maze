@@ -1,7 +1,7 @@
 extends ColorRect
 
 var fade_in = false
-var direction = .01
+var direction = .05
 
 
 

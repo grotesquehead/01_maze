@@ -243,6 +243,7 @@ shape = SubResource("CircleShape2D_c668y")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 blend_mode = 2
+shadow_enabled = true
 texture = SubResource("GradientTexture2D_4jfx4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

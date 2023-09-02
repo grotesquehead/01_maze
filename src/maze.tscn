@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://cbds1bwplih44"]
+[gd_scene load_steps=19 format=3 uid="uid://cbds1bwplih44"]
 
 [ext_resource type="Script" path="res://scripts/maze.gd" id="1_4lfwu"]
 [ext_resource type="Texture2D" uid="uid://bv7y4nn6v4dct" path="res://floor_tile.png" id="3_aj6cd"]
 [ext_resource type="Texture2D" uid="uid://dcgwhdyvbjyyb" path="res://wall_tile.png" id="3_r7rin"]
 [ext_resource type="PackedScene" uid="uid://p5m7kjcj68vl" path="res://player/player.tscn" id="4_xpdap"]
+[ext_resource type="FontFile" uid="uid://du08wnddaxuke" path="res://Roboto-Bold.ttf" id="5_42ml5"]
+[ext_resource type="Texture2D" uid="uid://dbnemkdv5gjxt" path="res://enemy/glint.png" id="5_385n3"]
 [ext_resource type="Script" path="res://maze_black.gd" id="5_e6n8g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8u5pl"]
@@ -179,6 +181,29 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.25098, 1)
 sources/0 = SubResource("TileSetAtlasSource_l84d8")
 
+[sub_resource type="Animation" id="Animation_8col5"]
+resource_name = "new_animation"
+length = 1.50001
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_16tlw"]
+_data = {
+"new_animation": SubResource("Animation_8col5")
+}
+
 [sub_resource type="Gradient" id="Gradient_rj5fc"]
 offsets = PackedFloat32Array(0, 0.651613)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -200,6 +225,7 @@ size = Vector2(40, 920)
 script = ExtResource("1_4lfwu")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
 
 [node name="TileMap2" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_7q5o3")
@@ -217,12 +243,32 @@ format = 2
 [node name="Player" parent="CanvasLayer" instance=ExtResource("4_xpdap")]
 position = Vector2(460, 460)
 
-[node name="Score" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 749.0
-offset_top = 2.0
-offset_right = 922.0
-offset_bottom = 151.0
-theme_override_colors/default_color = Color(1, 1, 1, 1)
+[node name="Glisten" type="Node2D" parent="CanvasLayer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Glisten"]
+position = Vector2(0, -40)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_385n3")
+hframes = 6
+frame = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Glisten"]
+root_node = NodePath("../Sprite2D")
+autoplay = "new_animation"
+libraries = {
+"": SubResource("AnimationLibrary_16tlw")
+}
+
+[node name="Score" type="Label" parent="CanvasLayer"]
+offset_left = 840.0
+offset_right = 920.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0.941176, 0.941176, 0.941176, 1)
+theme_override_fonts/font = ExtResource("5_42ml5")
+text = "Level 00
+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Black" type="ColorRect" parent="CanvasLayer"]
 process_mode = 3

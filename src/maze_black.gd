@@ -1,7 +1,7 @@
 extends ColorRect
 
 var fade_in = false
-var direction = .005
+var direction = .05
 var active = true
 
 signal on_fade_in()

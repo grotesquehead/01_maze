@@ -2,7 +2,7 @@ extends Node2D
 
 
 var fade_in = false
-var direction = .05
+var direction = .02
 
 
 

@@ -10,7 +10,7 @@ var dead = preload("res://dead.tscn")
 var level = 0
 var enemy_instance = null
 
-const SPEED_ADDITIVE = 200
+const SPEED_ADDITIVE = 20
 
 
 
@@ -218,8 +218,7 @@ func remove_wall_exit():
 
 func inrement_level():
     level += 1
-    $CanvasLayer/Score.clear()
-    $CanvasLayer/Score.append_text("Level " + str(level))
+    $CanvasLayer/Score.text = "Level " + str("%02d" % level)
 
 func move_light_to_exit(cell) -> Vector2:
     var light_position = Vector2.ZERO

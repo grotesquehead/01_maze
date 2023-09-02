@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dul36tgpx4h7c"]
+[gd_scene load_steps=4 format=3 uid="uid://dul36tgpx4h7c"]
 
 [ext_resource type="Script" path="res://splashfade.gd" id="1_74yfs"]
+[ext_resource type="FontFile" uid="uid://du08wnddaxuke" path="res://Roboto-Bold.ttf" id="2_up0g7"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_gvrlp"]
 
@@ -13,15 +14,21 @@ offset_right = 920.0
 offset_bottom = 920.0
 texture = SubResource("CanvasTexture_gvrlp")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 399.0
-offset_top = 389.0
-offset_right = 503.0
-offset_bottom = 422.0
-theme_override_colors/default_color = Color(1, 1, 1, 1)
-text = "You are ded."
+[node name="Label" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 920.0
+offset_bottom = 920.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_up0g7")
+text = "You are dead."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Black" type="ColorRect" parent="."]
+visible = false
 offset_right = 920.0
 offset_bottom = 920.0
 color = Color(0, 0, 0, 1)

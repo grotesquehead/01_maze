@@ -1,7 +1,7 @@
 extends Actor
 
 
-var speed = 120
+var speed = 100
 const SILENCE_DISTANCE = 1000
 const SILENCE = -30
 
@@ -111,7 +111,7 @@ func _process(_delta):
     velocity = direction * speed
 
     move_and_slide()
-
+    $"../CanvasLayer/Glisten".global_position = global_position
     set_animation(velocity)
 
 func heuristic(a, b) -> float:

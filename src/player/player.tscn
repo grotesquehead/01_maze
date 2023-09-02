@@ -1,9 +1,10 @@
-[gd_scene load_steps=28 format=3 uid="uid://p5m7kjcj68vl"]
+[gd_scene load_steps=31 format=3 uid="uid://p5m7kjcj68vl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_hcgwo"]
 [ext_resource type="Texture2D" uid="uid://cs5wxbo1eantw" path="res://player/player.png" id="2_ni65x"]
 [ext_resource type="Texture2D" uid="uid://5sp6cfe2f3k5" path="res://player/player_blink.png" id="3_ye1fg"]
 [ext_resource type="Script" path="res://player/hurt_box.gd" id="4_nfj3o"]
+[ext_resource type="Texture2D" uid="uid://8owhiglxdroa" path="res://player/player_death.png" id="5_r56ml"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c668y"]
 radius = 16.0
@@ -226,6 +227,42 @@ states/idle/position = Vector2(462, 100)
 states/walk/node = SubResource("AnimationNodeBlendSpace2D_fv8cp")
 states/walk/position = Vector2(566, 100)
 
+[sub_resource type="Animation" id="Animation_wmpwb"]
+resource_name = "death"
+length = 1.33335
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.33333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"emit_death_signal"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nn5gy"]
+_data = {
+"death": SubResource("Animation_wmpwb")
+}
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_hcgwo")
@@ -268,6 +305,18 @@ script = ExtResource("4_nfj3o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_c668y")
+
+[node name="DeathSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_r56ml")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DeathSprite"]
+libraries = {
+"": SubResource("AnimationLibrary_nn5gy")
+}
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="hit" from="HurtBox" to="." method="_on_hurt_box_hit"]

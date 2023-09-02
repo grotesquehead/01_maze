@@ -1,6 +1,8 @@
 extends Actor
 
 
+signal dead()
+
 const SPEED: int = 240
 const BLINK_DURATION: float = 0.15
 const BLINK_INTERVAL_MIN: float = 2.0 - BLINK_DURATION
@@ -45,4 +47,4 @@ func _on_timer_timeout():
 
 
 func _on_hurt_box_hit():
-    queue_free()
+    dead.emit()

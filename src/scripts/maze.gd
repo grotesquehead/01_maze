@@ -280,11 +280,7 @@ func _on_area_2d_area_entered(area):
 func _on_player_dead():
     $CanvasLayer/Black.active = true
     $CanvasLayer/Black.fade_in = true
-    print("woof")
     await $CanvasLayer/Black.on_fade_in
-    print("woof2")
-
     get_tree().change_scene_to_file("res://dead.tscn")
-    print("Sdfsdf")
 
 

@@ -107,14 +107,11 @@ func _process(_delta):
         return
     
     if distance_player < DISTANCE_THRESHOLD and player_node != path[-1]:
-        print("player")
         path = a_star(enemy_node, player_node, grid)
     elif enemy_node == path.front():
         if path.size() > 1:
-            print("pop")
             path.pop_front()
         else:
-            print("newe")
             path = a_star(enemy_node, random_destination(), grid)
         
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dpmrtre4vefcn"]
+[gd_scene load_steps=15 format=3 uid="uid://dpmrtre4vefcn"]
 
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_ya4ru"]
 [ext_resource type="Texture2D" uid="uid://b38wq1eeyfuat" path="res://enemy/enemy_down.png" id="2_e45bh"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://enemy/hit_box.gd" id="4_wqk10"]
 [ext_resource type="AudioStream" uid="uid://nh3aj0d5uw6l" path="res://enemy/footstep_2.mp3" id="5_j58rs"]
 [ext_resource type="Texture2D" uid="uid://bn7dnu4scu534" path="res://enemy/enemy_left.png" id="5_tfvam"]
+[ext_resource type="Texture2D" uid="uid://cp4523v6akh88" path="res://enemy/enemy_swing.png" id="9_x5uws"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qm6t4"]
 radius = 16.0
@@ -58,8 +59,41 @@ tracks/2/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_3ihf8"]
+resource_name = "swing"
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333, 0.666667, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 0]
+}
+
+[sub_resource type="Animation" id="Animation_roblg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yd30e"]
 _data = {
+"RESET": SubResource("Animation_roblg"),
+"swing": SubResource("Animation_3ihf8"),
 "walk": SubResource("Animation_vikdh")
 }
 
@@ -102,5 +136,12 @@ script = ExtResource("4_wqk10")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CircleShape2D_qm6t4")
 debug_color = Color(0.972549, 0, 0.439216, 0.419608)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -20)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_x5uws")
+hframes = 9
 
 [connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]

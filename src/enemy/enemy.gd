@@ -5,8 +5,6 @@ var speed = 100
 const SILENCE_DISTANCE = 500
 const SILENCE = -18
 
-@onready var animation_tree: AnimationTree = $AnimationTree
-
 var rng = RandomNumberGenerator.new()
 var player: CharacterBody2D = null
 const DISTANCE_THRESHOLD = 300
@@ -16,6 +14,15 @@ var direction = Vector2.ZERO
 var grid: Array = []
 var grid_size = null
 var tile_size = null
+
+@export var sprite_down: Texture
+@export var sprite_right: Texture
+@export var sprite_up: Texture
+@export var sprite_left: Texture
+
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 
 class AStarNode:
     var x: int
@@ -210,9 +217,13 @@ func post_ready():
     path = a_star(get_node_at_index(position), random_destination(), grid)
 
 
-func _ready():
-    animation_tree.get("parameters/playback").travel("walk")
-
-
 func set_animation(direction):
-    animation_tree.set("parameters/walk/blend_position", direction)
+    if direction.normalized().y > 0.9:
+        sprite.texture = sprite_down
+    if direction.normalized().x > 0.9:
+        sprite.texture = sprite_right
+    if direction.normalized().y < -0.9:
+        sprite.texture = sprite_up
+    if direction.normalized().x < -0.9:
+        sprite.texture = sprite_left
+    animation_player.speed_scale = speed / 100

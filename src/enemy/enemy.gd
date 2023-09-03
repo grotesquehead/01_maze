@@ -2,8 +2,8 @@ extends Actor
 
 
 var speed = 100
-const SILENCE_DISTANCE = 1000
-const SILENCE = -30
+const SILENCE_DISTANCE = 500
+const SILENCE = -18
 
 var rng = RandomNumberGenerator.new()
 var player: CharacterBody2D = null

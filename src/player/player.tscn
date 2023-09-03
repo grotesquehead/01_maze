@@ -13,7 +13,7 @@ radius = 16.0
 offsets = PackedFloat32Array(0, 0.651613)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_4jfx4"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p0epx"]
 gradient = SubResource("Gradient_xqelt")
 width = 320
 height = 320
@@ -281,7 +281,7 @@ shape = SubResource("CircleShape2D_c668y")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 blend_mode = 2
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_4jfx4")
+texture = SubResource("GradientTexture2D_p0epx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

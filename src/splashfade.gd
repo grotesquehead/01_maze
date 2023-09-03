@@ -2,7 +2,7 @@ extends Node2D
 
 
 var fade_in = false
-var direction = .02
+var direction = 1.2
 
 
 
@@ -22,9 +22,11 @@ func _input(event):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
     if fade_in:
-        $Black.modulate.a += direction
+        $Black.modulate.a += direction * delta
     else:
-        $Black.modulate.a -= direction
+        $Black.modulate.a -= direction * delta
+    
+    $Black.modulate.a = clamp($Black.modulate.a, 0, 1)
     
     if fade_in and $Black.modulate.a >= 1:
         get_tree().change_scene_to_file("res://maze.tscn")

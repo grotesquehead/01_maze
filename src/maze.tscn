@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cbds1bwplih44"]
+[gd_scene load_steps=23 format=3 uid="uid://cbds1bwplih44"]
 
 [ext_resource type="Script" path="res://scripts/maze.gd" id="1_4lfwu"]
 [ext_resource type="Texture2D" uid="uid://bv7y4nn6v4dct" path="res://floor_tile.png" id="3_aj6cd"]
@@ -7,6 +7,8 @@
 [ext_resource type="FontFile" uid="uid://du08wnddaxuke" path="res://Roboto-Bold.ttf" id="5_42ml5"]
 [ext_resource type="Texture2D" uid="uid://dbnemkdv5gjxt" path="res://enemy/glint.png" id="5_385n3"]
 [ext_resource type="Script" path="res://maze_black.gd" id="5_e6n8g"]
+[ext_resource type="Script" path="res://lightning.gd" id="8_58ok7"]
+[ext_resource type="AudioStream" uid="uid://3ut7ix0f3m6a" path="res://thunder.mp3" id="9_0tky6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8u5pl"]
 texture = ExtResource("3_aj6cd")
@@ -204,12 +206,20 @@ _data = {
 "new_animation": SubResource("Animation_8col5")
 }
 
-[sub_resource type="Gradient" id="Gradient_rj5fc"]
+[sub_resource type="Gradient" id="Gradient_fjvjs"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b8wkj"]
+gradient = SubResource("Gradient_fjvjs")
+width = 920
+height = 920
+
+[sub_resource type="Gradient" id="Gradient_xqelt"]
 offsets = PackedFloat32Array(0, 0.651613)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_vvsq4"]
-gradient = SubResource("Gradient_rj5fc")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iutk7"]
+gradient = SubResource("Gradient_xqelt")
 width = 320
 height = 320
 fill = 1
@@ -277,10 +287,23 @@ offset_bottom = 920.0
 color = Color(0, 0, 0, 1)
 script = ExtResource("5_e6n8g")
 
+[node name="Lightning" type="PointLight2D" parent="."]
+position = Vector2(459, 460)
+color = Color(1, 1, 1, 0.552941)
+blend_mode = 2
+texture = SubResource("GradientTexture2D_b8wkj")
+script = ExtResource("8_58ok7")
+
+[node name="Timer" type="Timer" parent="Lightning"]
+
+[node name="Thunder" type="AudioStreamPlayer2D" parent="Lightning"]
+stream = ExtResource("9_0tky6")
+
 [node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(852, 80)
 blend_mode = 2
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_vvsq4")
+texture = SubResource("GradientTexture2D_iutk7")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -304,4 +327,5 @@ position = Vector2(940, 460)
 shape = SubResource("RectangleShape2D_6vphj")
 
 [connection signal="dead" from="CanvasLayer/Player" to="." method="_on_player_dead"]
+[connection signal="timeout" from="Lightning/Timer" to="Lightning" method="_on_timer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

@@ -1,4 +1,4 @@
-extends Actor
+extends CharacterBody2D
 
 
 signal dead()
@@ -15,6 +15,7 @@ var input_enabled = true
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var timer = $Timer
+@onready var animation_tree: AnimationTree = $AnimationTree
 
 
 func _ready():
@@ -59,3 +60,12 @@ func _on_hurt_box_hit():
 
 func emit_death_signal():
     dead.emit()
+
+
+func set_animation(direction):
+    if direction:
+        animation_tree.get("parameters/playback").travel("walk")
+        animation_tree.set("parameters/idle/blend_position", direction)
+        animation_tree.set("parameters/walk/blend_position", direction)
+    else:
+        animation_tree.get("parameters/playback").travel("idle")

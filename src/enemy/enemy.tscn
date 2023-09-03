@@ -1,9 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://dpmrtre4vefcn"]
+[gd_scene load_steps=27 format=3 uid="uid://dpmrtre4vefcn"]
 
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_ya4ru"]
 [ext_resource type="Texture2D" uid="uid://ckc5s2vhsjr3i" path="res://enemy/enemy.png" id="2_yc64v"]
-[ext_resource type="AudioStream" uid="uid://bove1anpcrgt8" path="res://enemy/footsteps_hallway-6417.mp3" id="3_doyhf"]
+[ext_resource type="AudioStream" uid="uid://d1y0kohp3mrfh" path="res://enemy/footstep_1.mp3" id="4_omb2m"]
 [ext_resource type="Script" path="res://enemy/hit_box.gd" id="4_wqk10"]
+[ext_resource type="AudioStream" uid="uid://nh3aj0d5uw6l" path="res://enemy/footstep_2.mp3" id="5_j58rs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qm6t4"]
 radius = 16.0
@@ -97,6 +98,34 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2, 3]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Footstep1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.166667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Footstep2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_2kvqg"]
 resource_name = "walk_left"
@@ -114,6 +143,34 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [12, 13, 12, 15]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Footstep1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.166667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Footstep2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_e3eor"]
@@ -133,6 +190,34 @@ tracks/0/keys = {
 "update": 1,
 "values": [4, 5, 6, 7]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Footstep1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.166667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Footstep2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_k16c1"]
 resource_name = "walk_up"
@@ -150,6 +235,34 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [8, 9, 10, 11]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Footstep1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.166667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Footstep2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yd30e"]
@@ -224,13 +337,17 @@ position = Vector2(0, -20)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_yc64v")
 hframes = 16
+frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_qm6t4")
 debug_color = Color(0.972549, 0, 0.439216, 0.419608)
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_doyhf")
+[node name="Footstep1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_omb2m")
+
+[node name="Footstep2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_j58rs")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -254,5 +371,4 @@ script = ExtResource("4_wqk10")
 shape = SubResource("CircleShape2D_qm6t4")
 debug_color = Color(0.972549, 0, 0.439216, 0.419608)
 
-[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
 [connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]

@@ -1,9 +1,11 @@
-extends Actor
+extends CharacterBody2D
 
 
 var speed = 100
 const SILENCE_DISTANCE = 500
 const SILENCE = -18
+
+@onready var animation_tree: AnimationTree = $AnimationTree
 
 var rng = RandomNumberGenerator.new()
 var player: CharacterBody2D = null
@@ -70,7 +72,8 @@ func control_laugh():
         # Linearly interpolate the volume from -100 to 0 based on the ratio
         var volume = lerp(0, SILENCE, ratio)
         
-        $AudioStreamPlayer2D.volume_db = volume
+        $Footstep1.volume_db = volume
+        $Footstep2.volume_db = volume
 
 func random_destination() -> AStarNode:
     var d = null
@@ -205,9 +208,11 @@ func post_ready():
     grid_size = Vector2((p.grid_size * p.cell_size) - 1, (p.grid_size * p.cell_size) - 1)  # Replace with your actual grid size
     populate_grid_with_nodes(tilemap, grid_size)
     path = a_star(get_node_at_index(position), random_destination(), grid)
-    $AudioStreamPlayer2D.play()
 
 
-func _on_audio_stream_player_2d_finished():
-    $AudioStreamPlayer2D.stream_paused = false
-    $AudioStreamPlayer2D.play()
+func _ready():
+    animation_tree.get("parameters/playback").travel("walk")
+
+
+func set_animation(direction):
+    animation_tree.set("parameters/walk/blend_position", direction)

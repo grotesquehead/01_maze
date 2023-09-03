@@ -235,7 +235,6 @@ size = Vector2(40, 920)
 script = ExtResource("1_4lfwu")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0, 0, 0, 1)
 
 [node name="TileMap2" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_7q5o3")
@@ -260,7 +259,7 @@ position = Vector2(0, -40)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_385n3")
 hframes = 6
-frame = 5
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Glisten"]
 root_node = NodePath("../Sprite2D")

@@ -11,6 +11,7 @@ var level = 0
 var enemy_instance = null
 
 const SPEED_ADDITIVE = 20
+const MIN_ENEMY_SPAWN = 500
 
 
 
@@ -190,18 +191,25 @@ func recursive_backtracker():
             neighbour[1].visited = true
             moving_in = true
 
+func grid_to_world(l: Vector2) -> Vector2:
+    return Vector2(
+        ((l.x + 1) * $TileMap.tile_set.tile_size.x) + ($TileMap.tile_set.tile_size.x / 2),
+        ((l.y + 1) * $TileMap.tile_set.tile_size.y) + ($TileMap.tile_set.tile_size.y / 2)
+    )
+    
 func spawn_random_enemy():
-    var tile_id = "A Value lololol"
+    var tile_id
     var location
-    while tile_id != null:
+    var init = true
+    
+    
+    while init or (tile_id != null or grid_to_world(location).distance_to(Vector2(460, 460)) < MIN_ENEMY_SPAWN):
         location = Vector2i(randi() % grid.size(), randi() % grid.size())
         tile_id = $TileMap.get_cell_tile_data(0, location)
-
-    # Calculate the real-world position based on the grid location and cell size
-    var real_world_x = ((location.x + 1) * $TileMap.tile_set.tile_size.x) + ($TileMap.tile_set.tile_size.x / 2)
-    var real_world_y = ((location.y + 1) * $TileMap.tile_set.tile_size.y) + ($TileMap.tile_set.tile_size.y / 2)
+        init = false
+        
     
-    var real_world = Vector2(real_world_x, real_world_y)
+    var real_world = grid_to_world(location)
     
     var instance = enemy.instantiate()
     add_child(instance)
